@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
    public void StartGame()
     {
-        SceneManager.LoadScene("Main_Scene");
+        SceneManager.LoadScene("Fase1");
     }
 
     public void BackMainMenu()
@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
+        Debug.Log("Batata");
         Application.Quit();
     }
 }
