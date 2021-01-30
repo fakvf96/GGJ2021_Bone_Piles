@@ -6,7 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-   public void StartGame()
+    public static GameManager Instance = null;
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+    public void StartGame()
     {
         SceneManager.LoadScene("Main_Scene");
     }

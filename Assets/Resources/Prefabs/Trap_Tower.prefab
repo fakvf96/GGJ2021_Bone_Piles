@@ -4932,6 +4932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2aa408211882f84ebdebdf2e9a5a1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TrapIsWorking: 0
   charge: {fileID: 2511506333185931002}
   bullet_prefab: {fileID: 8618764409910807756, guid: c591048b4380ed74c9d7e02da6ba3b1e, type: 3}
   shoot_from: {fileID: 2511506332898990389}
@@ -4951,4 +4952,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 15.03
+  m_Radius: 15
