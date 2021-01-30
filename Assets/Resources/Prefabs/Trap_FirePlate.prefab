@@ -9822,8 +9822,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e2817b65d314547a0d0b8e5a2a9327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TrapIsWorking: 0
   fire1: {fileID: 677520165830092291}
   fire2: {fileID: 677520165599110549}
+  DelayToStart: 1
 --- !u!61 &677520165830233577
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2183466461041784731}
   - component: {fileID: 2183466461041784708}
   - component: {fileID: 2183466461041784730}
+  - component: {fileID: 223094651368302769}
   m_Layer: 0
   m_Name: Trap_CircularShot
   m_TagString: Trap
@@ -48,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2afd0ff9e853e3a43a9366cefba8168b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TrapIsWorking: 0
   bullet_prefab: {fileID: 164013601431773764, guid: 3ed3e6b050ea9ee4cbe36a264962efd0, type: 3}
   fire_destination_list:
   - {fileID: 2183466462501049189}
@@ -106,6 +108,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &223094651368302769
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2183466461041784709}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
 --- !u!1 &2183466461291931908
 GameObject:
   m_ObjectHideFlags: 0

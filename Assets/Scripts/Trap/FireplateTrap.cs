@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireplateTrap : MonoBehaviour
+public class FireplateTrap : Trap
 {
     [SerializeField] private ParticleSystem fire1;
     [SerializeField] private ParticleSystem fire2;
+    [SerializeField] private float DelayToStart = 2f;
     private bool canDealDamage = false;
     private bool playerIsInRange = false;
+    
+
     void Start()
     {
         StartCoroutine(StartTrap());
@@ -15,7 +18,7 @@ public class FireplateTrap : MonoBehaviour
 
     void Update()
     {
-        if (canDealDamage && playerIsInRange)
+        if (canDealDamage && playerIsInRange && TrapIsWorking)
         {
             // DAMAGE PLAYER
         }   
@@ -23,8 +26,12 @@ public class FireplateTrap : MonoBehaviour
 
     IEnumerator StartTrap()
     {
-        yield return new WaitForSeconds(2f);
-        while (true)
+        while (!TrapIsWorking)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        yield return new WaitForSeconds(DelayToStart);
+        while (TrapIsWorking)
         {
             fire1.Play();
             fire2.Play();

@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerTrap : MonoBehaviour
+public class TowerTrap : Trap
 {
     [SerializeField] private ParticleSystem charge;
     [SerializeField] private GameObject bullet_prefab;
@@ -10,9 +9,11 @@ public class TowerTrap : MonoBehaviour
     [SerializeField] [Range(1, 6)] private int difficult_level = 1;
     private GameObject player;
     private bool canShoot = false;
+
     void Start()
     {
-        player = GameObject.Find("Player"); Debug.Log(player.ToString());
+        player = GameObject.Find("Player");
+        TrapIsWorking = false;
     }
 
     private void Shoot()
@@ -25,16 +26,22 @@ public class TowerTrap : MonoBehaviour
     {
         while (canShoot)
         {
-            charge.Play();
-            yield return new WaitForSeconds(1.2f);
-            Shoot();
-            yield return new WaitForSeconds(2f);
+            if (TrapIsWorking)
+            {
+                charge.Play();
+                yield return new WaitForSeconds(1.2f);
+                Shoot();
+                yield return new WaitForSeconds(2f);
+            }
+            else
+            {
+                yield return new WaitForEndOfFrame();
+            }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
         if (collision.CompareTag("Player"))
         {
             if (!canShoot)

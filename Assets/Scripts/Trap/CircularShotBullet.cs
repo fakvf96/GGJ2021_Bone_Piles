@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class CircularShotBullet : MonoBehaviour
 {
     [SerializeField] private Sprite bullet_sprite;
     [SerializeField] private int difficult_level;
