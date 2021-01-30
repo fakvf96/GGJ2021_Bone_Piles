@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Fire") || collision.gameObject.CompareTag("Trap"))
+        if (collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Trap"))
         {
             return;
         }
