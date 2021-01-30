@@ -18,7 +18,7 @@ public class CircularShotTrap : Trap
     private void FireBullet(Vector3 firePoint)
     {
         var bullet = Instantiate(bullet_prefab, gameObject.transform.position, Quaternion.identity, this.gameObject.transform);
-        bullet.GetComponent<Bullet>().ReceiveDirection(firePoint,difficult_level);
+        bullet.GetComponent<CircularShotBullet>().ReceiveDirection(firePoint,difficult_level);
     }
 
     IEnumerator FiringBullets(GameObject GO_fire)

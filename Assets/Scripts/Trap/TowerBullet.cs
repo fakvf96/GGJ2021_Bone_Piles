@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class TowerBullet : MonoBehaviour
 {
+    private bool hitWall = false;
     public void Shoot(Transform playerPosition, int difficult)
     {
         StartCoroutine(GoToDestination(playerPosition, difficult));
@@ -13,6 +14,10 @@ public class TowerBullet : MonoBehaviour
         transform.LookAt(playerPosition);
         while (true)
         {
+            while (hitWall)
+            {
+                yield return new WaitForEndOfFrame();
+            }
             transform.position += transform.forward * ( 3 * difficult ) * Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
@@ -27,7 +32,13 @@ public class TowerBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             // DAMAGE PLAYER
+
+            Destroy(this.gameObject);
         }
-        Destroy(this.gameObject);
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            hitWall = true;
+            Destroy(this.gameObject, 5f);
+        }
     }
 }
