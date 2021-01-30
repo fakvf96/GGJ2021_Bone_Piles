@@ -6,9 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-   public void StartGame()
+
+    public static GameManager Instance = null;
+
+    private void Awake()
     {
-        SceneManager.LoadScene("Fase1");
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
+    public void StartGame(string SceneToLoad)
+    {
+        SceneManager.LoadScene(SceneToLoad);
     }
 
     public void BackMainMenu()
@@ -16,9 +28,10 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void Restart() 
+    public void Restart ()
     {
-        SceneManager.LoadScene("Main_Scene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Debug.Log("Reiniciando");
     }
 
     public void QuitGame()
@@ -26,4 +39,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("Batata");
         Application.Quit();
     }
+
+    
+
 }
+
+
+
+
+
