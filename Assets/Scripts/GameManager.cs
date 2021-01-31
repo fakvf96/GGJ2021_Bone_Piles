@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance = null;
     bool Pause = false;
     bool Resume = false;
+    public bool playerHasDogBone = false;
 
     public void PauseGame()
     {
