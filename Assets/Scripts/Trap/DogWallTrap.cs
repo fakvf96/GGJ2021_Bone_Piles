@@ -33,10 +33,10 @@ public class DogWallTrap : MonoBehaviour
         anim.SetTrigger("ReceiveBone");
         yield return new WaitForSeconds(3f);
         bool goingDown = true;
-        Vector3 target = transform.position - new Vector3(0, 5, 0);
+        Vector3 target = transform.position - new Vector3(0, 8, 0);
         while (goingDown)
         {
-            transform.position = Vector2.MoveTowards(transform.position, target, 0.01f);
+            transform.position = Vector2.MoveTowards(transform.position, target, 0.03f);
             if(transform.position.y <= target.y)
             {
                 goingDown = false;
