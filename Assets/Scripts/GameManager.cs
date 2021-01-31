@@ -8,6 +8,37 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager Instance = null;
+    bool Pause = false;
+    bool Resume = false;
+
+    public void PauseGame()
+    {
+        if (Pause)
+        {
+            Time.timeScale = 1;
+            Pause = false;
+        }
+        else
+        {
+            Time.timeScale = 0;
+            Pause = true;
+        }
+    }
+
+    public void ResumeGame()
+    {
+        if (Resume)
+        {
+            Time.timeScale = 1;
+            Resume = true;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            Resume = false;
+            
+        }
+    }
 
     private void Awake()
     {
