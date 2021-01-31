@@ -10,19 +10,23 @@ public class FireplateTrap : Trap
     private bool canDealDamage = false;
     private bool playerIsInRange = false;
     private Animator anim;
-    
+    private Braco player;
+    private bool damagingPlayer = false;
 
     void Start()
     {
         anim = GetComponent<Animator>();
         StartCoroutine(StartTrap());
+        player = GameObject.Find("Player").GetComponent<Braco>();
     }
 
     void Update()
     {
-        if (canDealDamage && playerIsInRange && TrapIsWorking)
+        if (canDealDamage && playerIsInRange && TrapIsWorking && !damagingPlayer)
         {
-            // DAMAGE PLAYER
+            damagingPlayer = true;
+            player.TomaDano();
+            StartCoroutine(Count(5));
         }   
     }
 
@@ -63,5 +67,11 @@ public class FireplateTrap : Trap
         {
             playerIsInRange = false;
         }
+    }
+
+    IEnumerator Count(int time)
+    {
+        yield return new WaitForSeconds(time);
+        damagingPlayer = false;
     }
 }
