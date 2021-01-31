@@ -10,11 +10,14 @@ public class SmashTrap : Trap
     private bool opening = false;
     private Vector3 leftStartPosition;
     private Vector3 rightStartPosition;
+    private Braco player;
+    private bool damagingPlayer = false;
 
 
 
     void Start()
     {
+        player = GameObject.Find("Player").GetComponent<Braco>();
         StartCoroutine(Smash());
         leftStartPosition = leftSmash.transform.position;
         rightStartPosition = rightSmash.transform.position;
@@ -66,10 +69,18 @@ public class SmashTrap : Trap
     {
         if (collision.CompareTag("Player"))
         {
-            if (closing)
+            if (closing && !damagingPlayer)
             {
-                // DAMAGE PLAYER
+                damagingPlayer = true;
+                player.TomaDano();
+                StartCoroutine(Count(5));
             }
         }
+    }
+
+    IEnumerator Count(int time)
+    {
+        yield return new WaitForSeconds(time);
+        damagingPlayer = false;
     }
 }

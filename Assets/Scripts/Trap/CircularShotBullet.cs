@@ -1,14 +1,18 @@
 using UnityEngine;
+using System.Collections;
 
 public class CircularShotBullet : MonoBehaviour
 {
     [SerializeField] private Sprite bullet_sprite;
     [SerializeField] private int difficult_level;
+    private Braco player;
+    private bool damagingPlayer = false;
 
     private Vector2 directionToGo;
     void Start()
     {
         GetComponent<SpriteRenderer>().sprite = bullet_sprite;
+        player = GameObject.Find("Player").GetComponent<Braco>();
     }
 
     void Update()
@@ -32,9 +36,21 @@ public class CircularShotBullet : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Player"))
         {
-            // DAMAGE PLAYER
+            if (!damagingPlayer)
+            {
+                damagingPlayer = true;
+                player.TomaDano();
+                StartCoroutine(Count(5));
+            }
+            
         }
         
         Destroy(this.gameObject);
+    }
+
+    IEnumerator Count(int time)
+    {
+        yield return new WaitForSeconds(time);
+        damagingPlayer = false;
     }
 }

@@ -6,8 +6,11 @@ public class SawTrap : MonoBehaviour
     [SerializeField] private GameObject saw;
     private bool playerInRange = false;
     public int direction = 0;
+    private Braco player;
+    private bool damagingPlayer = false;
     void Start()
     {
+        player = GameObject.Find("Player").GetComponent<Braco>();
         if(direction == 0)
         {
             StartCoroutine(MoveLeft());
@@ -23,8 +26,19 @@ public class SawTrap : MonoBehaviour
     {
         if (playerInRange)
         {
-            // DAMAGE PLAYER
+            if (!damagingPlayer)
+            {
+                damagingPlayer = true;
+                player.TomaDano();
+                StartCoroutine(Count(5));
+            }
         }
+    }
+
+    IEnumerator Count(int time)
+    {
+        yield return new WaitForSeconds(time);
+        damagingPlayer = false;
     }
 
     IEnumerator MoveLeft()

@@ -4,11 +4,17 @@ using UnityEngine;
 public class TowerBullet : MonoBehaviour
 {
     private bool hitWall = false;
+    private Braco player;
+    
+
     public void Shoot(Transform playerPosition, int difficult)
     {
         StartCoroutine(GoToDestination(playerPosition, difficult));
     }
-
+    private void Start()
+    {
+        player = GameObject.Find("Player").GetComponent<Braco>();
+    }
 
 
     private IEnumerator GoToDestination(Transform playerPosition, int difficult)
@@ -35,7 +41,7 @@ public class TowerBullet : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Player"))
         {
-            // DAMAGE PLAYER
+            player.TomaDano();
             hitWall = true;
             Destroy(this.gameObject, 3f);
         }

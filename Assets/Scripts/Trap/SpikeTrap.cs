@@ -9,18 +9,23 @@ public class SpikeTrap : Trap
     [SerializeField] private float DelayToStart = 2f;
     private bool canDealDamage = false;
     private bool playerIsInRange = false;
+    private Braco player;
+    private bool damagingPlayer = false;
 
     void Start()
     {
         StartCoroutine(StartTrap());
         anim = GetComponent<Animator>();
+        player = GameObject.Find("Player").GetComponent<Braco>();
     }
 
     void Update()
     {
-        if (canDealDamage && playerIsInRange && TrapIsWorking)
+        if (canDealDamage && playerIsInRange && TrapIsWorking && !damagingPlayer)
         {
-            // DAMAGE PLAYER
+            damagingPlayer = true;
+            player.TomaDano();
+            StartCoroutine(Count(5));
         }
     }
 
@@ -57,5 +62,11 @@ public class SpikeTrap : Trap
         {
             playerIsInRange = false;
         }
+    }
+
+    IEnumerator Count(int time)
+    {
+        yield return new WaitForSeconds(time);
+        damagingPlayer = false;
     }
 }
