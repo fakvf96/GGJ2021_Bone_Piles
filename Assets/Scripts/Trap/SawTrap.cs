@@ -1,60 +1,66 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SawTrap : MonoBehaviour
 {
     [SerializeField] private GameObject saw;
     private bool playerInRange = false;
-    private bool showing = false;
-    private bool waiting = false;
+    public int direction = 0;
     void Start()
     {
-        StartCoroutine(HideSaw());
+        if(direction == 0)
+        {
+            StartCoroutine(MoveLeft());
+        }
+        else
+        {
+            StartCoroutine(MoveRight());
+        }
+        
     }
 
-    IEnumerator HideSaw()
+    private void Update()
     {
-        bool hiding = true;
-        while (hiding)
+        if (playerInRange)
         {
-            saw.transform.position = Vector2.MoveTowards(saw.transform.position, saw.transform.position - new Vector3(0, -1.25f, 0), -0.01f);
-            if (saw.transform.position.y < -1.24)
+            // DAMAGE PLAYER
+        }
+    }
+
+    IEnumerator MoveLeft()
+    {
+        bool movingLeft = true;
+        var target = saw.transform.localPosition.x - 5.3f;
+        while (movingLeft)
+        {
+            saw.transform.localPosition = Vector2.MoveTowards(saw.transform.localPosition, saw.transform.localPosition - new Vector3(5.3f, 0, 0), 0.01f);
+            //Debug.Log("Left" + saw.transform.localPosition.x.ToString() + " / " + (saw.transform.localPosition.x - 5.3f).ToString());
+            if (saw.transform.localPosition.x < (target))
             {
-                hiding = false;
-                yield return new WaitForSeconds(3f);
+                movingLeft = false;
+                yield return new WaitForSeconds(1f);
             }
             yield return new WaitForEndOfFrame();
         }
-        StartCoroutine(ShowSaw());
+        StartCoroutine(MoveRight());
     }
 
-    IEnumerator ShowSaw()
+    IEnumerator MoveRight()
     {
-        waiting = false;
-        showing = true;
-        while (showing)
+        bool movingRight = true;
+        var target = saw.transform.localPosition.x + 5.3f;
+        while (movingRight)
         {
-            if (playerInRange)
+            saw.transform.localPosition = Vector2.MoveTowards(saw.transform.localPosition, saw.transform.localPosition + new Vector3(5.3f, 0, 0), 0.01f);
+            //Debug.Log("Right" + saw.transform.localPosition.x.ToString() + " / " + (saw.transform.localPosition.x - 5.3f).ToString());
+            if (saw.transform.localPosition.x > (target))
             {
-                // DAMAGE PLAYER
-            }
-            if(!waiting)
-                saw.transform.position = Vector2.MoveTowards(saw.transform.position, saw.transform.position + new Vector3(0, 1.25f, 0), 0.01f);
-            if(saw.transform.position.y > 0 && !waiting)
-            {
-                waiting = true;
-                StartCoroutine(WaitAndHide());
+                movingRight = false;
+                yield return new WaitForSeconds(1f);
             }
             yield return new WaitForEndOfFrame();
         }
-        StartCoroutine(HideSaw());
-    }
-
-    IEnumerator WaitAndHide()
-    {
-        yield return new WaitForSeconds(3f);
-        showing = false;
+        StartCoroutine(MoveLeft());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
