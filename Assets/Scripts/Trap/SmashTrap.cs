@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class SmashTrap : Trap
 {
+    [SerializeField] private Animator anim1, anim2;
     [SerializeField] private GameObject leftSmash, rightSmash, center;
     private bool closing = false;
     private bool opening = false;
     private Vector3 leftStartPosition;
     private Vector3 rightStartPosition;
+
+
 
     void Start()
     {
@@ -38,7 +41,11 @@ public class SmashTrap : Trap
                     rightSmash.transform.position = Vector2.MoveTowards(rightSmash.transform.position, rightStartPosition, 0.01f);
                     yield return new WaitForEndOfFrame();
                 }
+                anim1.SetTrigger("Smash");
+                anim2.SetTrigger("Smash");
             }
+            
+            yield return new WaitForEndOfFrame();
         }
     }
     

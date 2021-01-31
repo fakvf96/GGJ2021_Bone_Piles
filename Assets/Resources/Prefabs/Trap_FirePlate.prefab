@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &677520165599110550
 Transform:
   m_ObjectHideFlags: 0
@@ -9736,6 +9736,7 @@ GameObject:
   - component: {fileID: 677520165830233582}
   - component: {fileID: 677520165830233576}
   - component: {fileID: 677520165830233577}
+  - component: {fileID: 1794966084}
   m_Layer: 0
   m_Name: Trap_FirePlate
   m_TagString: Trap
@@ -9752,7 +9753,7 @@ Transform:
   m_GameObject: {fileID: 677520165830233581}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.75, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 677520165830092289}
   - {fileID: 677520165599110550}
@@ -9799,7 +9800,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 874700db320c8f74c9eb14347eadfaee, type: 3}
+  m_Sprite: {fileID: -2940314805408011376, guid: d7f05592c59d9684a828cceb6e825a9e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -9839,16 +9840,35 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.71769524}
+  m_Offset: {x: -0.054927826, y: 0.086024165}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.64, y: 0.67}
+    oldSize: {x: 10.799999, y: 10.799999}
     newSize: {x: 0.64, y: 0.67}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 2.105391}
+  m_Size: {x: 8.000344, y: 7.9826813}
   m_EdgeRadius: 0
+--- !u!95 &1794966084
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677520165830233581}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 777460f17ab4ad24bbc9ad89dc3230c6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

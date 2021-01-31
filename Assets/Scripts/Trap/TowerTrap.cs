@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class TowerTrap : Trap
 {
-    [SerializeField] private ParticleSystem charge;
     [SerializeField] private GameObject bullet_prefab;
     [SerializeField] private Transform shoot_from;
     [SerializeField] [Range(1, 6)] private int difficult_level = 1;
+    private Animator anim;
     private GameObject player;
     private bool canShoot = false;
 
     void Start()
     {
         player = GameObject.Find("Player");
-        TrapIsWorking = false;
+        anim = GetComponent<Animator>();
     }
 
     private void Shoot()
@@ -28,10 +28,12 @@ public class TowerTrap : Trap
         {
             if (TrapIsWorking)
             {
-                charge.Play();
+                anim.SetTrigger("Fire");
                 yield return new WaitForSeconds(1.2f);
                 Shoot();
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(0.5f);
+                anim.SetTrigger("Iddle");
+                yield return new WaitForSeconds(1.5f);
             }
             else
             {

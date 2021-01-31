@@ -8,9 +8,13 @@ public class CircularShotTrap : Trap
     [SerializeField] private List<GameObject> fire_destination_list;
     [SerializeField] [Range(1, 7)] private int difficult_level = 1;
 
+    private Animator anim;
+    private bool startedShooting = false;
+
     private bool canShoot = false;
     void Start()
     {
+        anim = GetComponent<Animator>();
         TrapIsWorking = false;
     }
 
@@ -23,10 +27,12 @@ public class CircularShotTrap : Trap
 
     IEnumerator FiringBullets(GameObject GO_fire)
     {
+        yield return new WaitForSeconds(1f);
         while (canShoot)
         {
             if (TrapIsWorking)
             {
+                startedShooting = true;
                 float waitTime = 1.75f - ((difficult_level * 0.5f) / 2);
                 if (waitTime <= 0)
                     waitTime = 0.15f;
@@ -35,6 +41,11 @@ public class CircularShotTrap : Trap
             }
             else
             {
+                if (startedShooting)
+                {
+                    anim.SetTrigger("Desactivate");
+                    anim.SetTrigger("Iddle");
+                }
                 yield return new WaitForEndOfFrame();
             }
         }
@@ -54,6 +65,8 @@ public class CircularShotTrap : Trap
                 canShoot = true;
                 foreach (GameObject fireDestination in fire_destination_list)
                 {
+                    anim.SetTrigger("Activate");
+                    anim.SetTrigger("Fire");
                     StartCoroutine(FiringBullets(fireDestination));
                 }
             }

@@ -9,6 +9,8 @@ public class TowerBullet : MonoBehaviour
         StartCoroutine(GoToDestination(playerPosition, difficult));
     }
 
+
+
     private IEnumerator GoToDestination(Transform playerPosition, int difficult)
     {
         transform.LookAt(playerPosition);
@@ -19,12 +21,14 @@ public class TowerBullet : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
             transform.position += transform.forward * ( 3 * difficult ) * Time.deltaTime;
+            
             yield return new WaitForEndOfFrame();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.ToString());
         if (collision.gameObject.CompareTag("Trap") || collision.gameObject.CompareTag("Bullet"))
         {
             return;
@@ -32,8 +36,8 @@ public class TowerBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             // DAMAGE PLAYER
-
-            Destroy(this.gameObject);
+            hitWall = true;
+            Destroy(this.gameObject, 3f);
         }
         if (collision.gameObject.CompareTag("Wall"))
         {

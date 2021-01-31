@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SpikeTrap : Trap
 {
-    [SerializeField] private Sprite sprite1;
-    [SerializeField] private Sprite sprite2;
+    private Animator anim;
+    
     [SerializeField] private float DelayToStart = 2f;
     private bool canDealDamage = false;
     private bool playerIsInRange = false;
@@ -13,6 +13,7 @@ public class SpikeTrap : Trap
     void Start()
     {
         StartCoroutine(StartTrap());
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -32,13 +33,13 @@ public class SpikeTrap : Trap
         yield return new WaitForSeconds(DelayToStart);
         while (TrapIsWorking)
         {
+            anim.SetTrigger("Open");
             yield return new WaitForSeconds(2f);
-            GetComponent<SpriteRenderer>().sprite = sprite2;
             canDealDamage = true;
             yield return new WaitForSeconds(2f);
-            GetComponent<SpriteRenderer>().sprite = sprite1;
+            anim.SetTrigger("Close");
             canDealDamage = false;
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
         }
     }
 

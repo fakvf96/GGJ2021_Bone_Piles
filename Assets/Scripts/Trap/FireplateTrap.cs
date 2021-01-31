@@ -9,10 +9,12 @@ public class FireplateTrap : Trap
     [SerializeField] private float DelayToStart = 2f;
     private bool canDealDamage = false;
     private bool playerIsInRange = false;
+    private Animator anim;
     
 
     void Start()
     {
+        anim = GetComponent<Animator>();
         StartCoroutine(StartTrap());
     }
 
@@ -26,6 +28,7 @@ public class FireplateTrap : Trap
 
     IEnumerator StartTrap()
     {
+        yield return new WaitForSeconds(2f);
         while (!TrapIsWorking)
         {
             yield return new WaitForEndOfFrame();
@@ -33,13 +36,15 @@ public class FireplateTrap : Trap
         yield return new WaitForSeconds(DelayToStart);
         while (TrapIsWorking)
         {
+            anim.SetTrigger("FireUp");
             fire1.Play();
             fire2.Play();
             yield return new WaitForSeconds(2f);
             canDealDamage = true;
             yield return new WaitForSeconds(2f);
+            anim.SetTrigger("FireDown");
             canDealDamage = false;
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
         }
     }
 
@@ -49,6 +54,7 @@ public class FireplateTrap : Trap
         {
             playerIsInRange = true;
         }
+        
     }
 
     private void OnTriggerExit2D(Collider2D collision)
