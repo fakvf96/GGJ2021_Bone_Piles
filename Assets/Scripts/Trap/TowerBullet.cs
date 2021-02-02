@@ -35,7 +35,7 @@ public class TowerBullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision.ToString());
-        if (collision.gameObject.CompareTag("Trap") || collision.gameObject.CompareTag("Bullet"))
+        if (collision.gameObject.CompareTag("Trap") || collision.gameObject.CompareTag("Bullet") || hitWall)
         {
             return;
         }

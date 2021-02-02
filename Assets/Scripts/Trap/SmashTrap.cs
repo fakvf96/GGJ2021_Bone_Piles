@@ -12,7 +12,7 @@ public class SmashTrap : Trap
     private Vector3 rightStartPosition;
     private Braco player;
     private bool damagingPlayer = false;
-
+    public bool playerInContact = false;
 
 
     void Start()
@@ -21,6 +21,16 @@ public class SmashTrap : Trap
         StartCoroutine(Smash());
         leftStartPosition = leftSmash.transform.position;
         rightStartPosition = rightSmash.transform.position;
+    }
+
+    private void Update()
+    {
+        if (closing && !damagingPlayer && playerInContact)
+        {
+            damagingPlayer = true;
+            player.TomaDano();
+            StartCoroutine(Count(2));
+        }
     }
 
     IEnumerator Smash()
@@ -33,15 +43,15 @@ public class SmashTrap : Trap
                 StartCoroutine(ClosingSmash());
                 while (closing)
                 {
-                    leftSmash.transform.position = Vector2.MoveTowards(leftSmash.transform.position, center.transform.position, 0.05f);
-                    rightSmash.transform.position = Vector2.MoveTowards(rightSmash.transform.position, center.transform.position, 0.05f);
+                    leftSmash.transform.position = Vector2.MoveTowards(leftSmash.transform.position, center.transform.position, 0.10f);
+                    rightSmash.transform.position = Vector2.MoveTowards(rightSmash.transform.position, center.transform.position, 0.10f);
                     yield return new WaitForEndOfFrame();
                 }
                 StartCoroutine(OpeningSmash());
                 while (opening)
                 {
-                    leftSmash.transform.position = Vector2.MoveTowards(leftSmash.transform.position, leftStartPosition, 0.01f);
-                    rightSmash.transform.position = Vector2.MoveTowards(rightSmash.transform.position, rightStartPosition, 0.01f);
+                    leftSmash.transform.position = Vector2.MoveTowards(leftSmash.transform.position, leftStartPosition, 0.05f);
+                    rightSmash.transform.position = Vector2.MoveTowards(rightSmash.transform.position, rightStartPosition, 0.05f);
                     yield return new WaitForEndOfFrame();
                 }
                 anim1.SetTrigger("Smash");
@@ -63,19 +73,6 @@ public class SmashTrap : Trap
         opening = true;
         yield return new WaitForSeconds(3f);
         opening = false;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            if (closing && !damagingPlayer)
-            {
-                damagingPlayer = true;
-                player.TomaDano();
-                StartCoroutine(Count(5));
-            }
-        }
     }
 
     IEnumerator Count(int time)
