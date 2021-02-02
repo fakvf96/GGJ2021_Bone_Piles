@@ -44,7 +44,7 @@ public class SpikeTrap : Trap
             yield return new WaitForSeconds(2f);
             anim.SetTrigger("Close");
             canDealDamage = false;
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(5f);
         }
     }
 

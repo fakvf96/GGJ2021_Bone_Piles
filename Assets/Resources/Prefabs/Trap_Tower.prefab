@@ -104,7 +104,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 1787251025158452861, guid: 0e9b2ce7ea6223c47aa59be06a2380da, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   TrapIsWorking: 0
   bullet_prefab: {fileID: 8618764409910807756, guid: c591048b4380ed74c9d7e02da6ba3b1e, type: 3}
   shoot_from: {fileID: 2511506332898990389}
-  difficult_level: 6
+  difficult_level: 3
 --- !u!58 &2511506334728366807
 CircleCollider2D:
   m_ObjectHideFlags: 0

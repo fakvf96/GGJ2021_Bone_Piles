@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 1967902168}
   m_Layer: 0
   m_Name: Trap_Smash
-  m_TagString: Trap
+  m_TagString: saw
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -403,6 +403,7 @@ MonoBehaviour:
   leftSmash: {fileID: 973569643}
   rightSmash: {fileID: 1413706719}
   center: {fileID: 8131234864268324833}
+  playerInContact: 0
 --- !u!95 &1967902168
 Animator:
   serializedVersion: 3

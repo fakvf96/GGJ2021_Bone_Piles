@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class DogDoorBone : MonoBehaviour
 {
-    public GameManager GM;
+    public DogWallTrap dog;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            GM.playerHasDogBone = true;
+            dog.playerHasDogBone = true;
             Destroy(this.gameObject);
         }
     }

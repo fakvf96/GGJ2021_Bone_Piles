@@ -6,7 +6,7 @@ public class DogWallTrap : MonoBehaviour
     private GameObject player;
     private Animator anim;
     private bool DoorActivated = false;
-    public GameManager GM;
+    public bool playerHasDogBone = false;
 
     private void Start()
     {
@@ -16,7 +16,7 @@ public class DogWallTrap : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") && !DoorActivated && GM.playerHasDogBone)
+        if (collision.CompareTag("Player") && !DoorActivated && playerHasDogBone)
         {
             DoorActivated = true;
             StartCoroutine(GoAway());

@@ -4,10 +4,11 @@ using UnityEngine;
 public class SawTrap : MonoBehaviour
 {
     [SerializeField] private GameObject saw;
-    private bool playerInRange = false;
+    public bool playerInRange = false;
     public int direction = 0;
     private Braco player;
     private bool damagingPlayer = false;
+    [Range(0.01f, 0.10f)] public float speed = 0.01f;
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Braco>();
@@ -30,7 +31,7 @@ public class SawTrap : MonoBehaviour
             {
                 damagingPlayer = true;
                 player.TomaDano();
-                StartCoroutine(Count(5));
+                StartCoroutine(Count(2));
             }
         }
     }
@@ -47,7 +48,7 @@ public class SawTrap : MonoBehaviour
         var target = saw.transform.localPosition.x - 5.3f;
         while (movingLeft)
         {
-            saw.transform.localPosition = Vector2.MoveTowards(saw.transform.localPosition, saw.transform.localPosition - new Vector3(5.3f, 0, 0), 0.01f);
+            saw.transform.localPosition = Vector2.MoveTowards(saw.transform.localPosition, saw.transform.localPosition - new Vector3(5.3f, 0, 0), speed);
             //Debug.Log("Left" + saw.transform.localPosition.x.ToString() + " / " + (saw.transform.localPosition.x - 5.3f).ToString());
             if (saw.transform.localPosition.x < (target))
             {
@@ -65,7 +66,7 @@ public class SawTrap : MonoBehaviour
         var target = saw.transform.localPosition.x + 5.3f;
         while (movingRight)
         {
-            saw.transform.localPosition = Vector2.MoveTowards(saw.transform.localPosition, saw.transform.localPosition + new Vector3(5.3f, 0, 0), 0.01f);
+            saw.transform.localPosition = Vector2.MoveTowards(saw.transform.localPosition, saw.transform.localPosition + new Vector3(5.3f, 0, 0), speed);
             //Debug.Log("Right" + saw.transform.localPosition.x.ToString() + " / " + (saw.transform.localPosition.x - 5.3f).ToString());
             if (saw.transform.localPosition.x > (target))
             {
@@ -77,19 +78,5 @@ public class SawTrap : MonoBehaviour
         StartCoroutine(MoveLeft());
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            playerInRange = true;
-        }
-    }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            playerInRange = false;
-        }
-    }
 }

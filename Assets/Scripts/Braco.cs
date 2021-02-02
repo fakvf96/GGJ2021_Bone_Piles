@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Braco : MonoBehaviour
 {
@@ -8,8 +9,9 @@ public class Braco : MonoBehaviour
     public bool pegouTorço;
     public bool pegouPernaD;
     public bool pegouPernaE;
-    
-    
+    public bool tomouDano;
+
+    public GameObject drop;
     public GameObject braço;
     public GameObject torço;
     public GameObject pernaD;
@@ -31,24 +33,83 @@ public class Braco : MonoBehaviour
         pegouTorço = false;
         pegouPernaD = false;
         pegouPernaE = false;
-        
-        vida = 2 ;
+        tomouDano = false;
+
+        vida = 1;
     }
 
   
     void Update()
     {
         PegaMembro();
-        
+          
     }
 
     public void TomaDano()
     {
-
-        if (vida >= 1)
+        //cabça
+        if(tomouDano == true)
         {
-            vida = 1;
+            tomouDano = true;
+            if(vida >= 0)
+            {
+                vida -= 1;
+                anim.SetTrigger("queimadofrente");
+                movimento = GetComponent<Move>().moveSpeed = 0f;
+                SceneManager.LoadScene("MainMenu");
+            }
+        }
 
+        //braço
+        if(tomouDano == true)
+        {
+            if(vida >= 1)
+            {
+                vida -= 1;
+                anim.SetTrigger("cabeça");
+                braço.transform.position = drop.transform.position;
+                braço.gameObject.SetActive(true);
+                movimento = GetComponent<Move>().moveSpeed = 10;
+            }
+        }
+
+        //torço
+        if (tomouDano == true)
+        {
+            if (vida >= 3)
+            {
+                vida -= 1;
+                anim.SetTrigger("pegoubraço");
+                torço.transform.position = drop.transform.position;
+                torço.gameObject.SetActive(true);
+                movimento = GetComponent<Move>().moveSpeed = 11f;
+            }
+        }
+
+        //pernaD
+        if (tomouDano == true)
+        {
+            if (vida >= 4)
+            {
+                vida -= 1;
+                anim.SetTrigger("pegoutorço");
+                pernaD.transform.position = drop.transform.position;
+                pernaD.gameObject.SetActive(true);
+                movimento = GetComponent<Move>().moveSpeed = 12f;
+            }
+        }
+
+        //pernaE
+        if (tomouDano == true)
+        {
+            if (vida >= 5)
+            {
+                vida -= 1;
+                anim.SetTrigger("pernaD");
+                pernaE.transform.position = drop.transform.position;
+                pernaE.gameObject.SetActive(true);
+                movimento = GetComponent<Move>().moveSpeed = 13f;
+            }
         }
 
     }
@@ -61,10 +122,10 @@ public class Braco : MonoBehaviour
             {
                 braço.gameObject.SetActive(false);
                 anim.SetTrigger("pegoubraço");
-                movimento = GetComponent<Move>().moveSpeed = 6f;
-                if (vida != 3)
+                movimento = GetComponent<Move>().moveSpeed = 14f;
+                if (vida != 2)
                 {
-                    vida = 3;
+                    vida = 2;
                 }     
             }
         }
@@ -73,13 +134,13 @@ public class Braco : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                movimento = GetComponent<Move>().moveSpeed = 7f;
+                movimento = GetComponent<Move>().moveSpeed = 12f;
                 torço.gameObject.SetActive(false);
                 anim.SetTrigger("pegoutorço");
                 
-                if (vida != 4)
+                if (vida != 3)
                 {
-                    vida = 4;
+                    vida = 3;
                 }
             }
         }
@@ -88,13 +149,13 @@ public class Braco : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                movimento = GetComponent<Move>().moveSpeed = 8f;
+                movimento = GetComponent<Move>().moveSpeed = 13f;
                 pernaD.gameObject.SetActive(false);
                 anim.SetTrigger("pegoupernaD");
 
-                if (vida != 5)
+                if (vida != 4)
                 {
-                    vida = 5;
+                    vida = 4;
                 }
             }
         }
@@ -103,13 +164,13 @@ public class Braco : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                movimento = GetComponent<Move>().moveSpeed = 9f;
+                movimento = GetComponent<Move>().moveSpeed = 14f;
                 pernaE.gameObject.SetActive(false);
                 anim.SetTrigger("pegoupernaE");
 
-                if (vida != 6)
+                if (vida != 5)
                 {
-                    vida = 6;
+                    vida = 5;
                 }
             }
         }
@@ -140,6 +201,21 @@ public class Braco : MonoBehaviour
             colisor.enabled = true;
             pegouPernaE = true;
         }
+
+        if (player.gameObject.CompareTag("Bullet"))
+        {
+            tomouDano = true;
+        }
+
+        if (player.gameObject.CompareTag("saw"))
+        {
+            tomouDano = true;
+        }
+
+        if (player.gameObject.CompareTag("Trap"))
+        {
+            tomouDano = true;
+        }
     }
     public void OnTriggerExit2D(Collider2D player)
     {
@@ -162,6 +238,8 @@ public class Braco : MonoBehaviour
         {
             pegouPernaE = false;
         }
+
+        
 
        
     }
