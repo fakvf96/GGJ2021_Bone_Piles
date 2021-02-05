@@ -5,8 +5,7 @@ using UnityEngine;
 public class FireplateTrap : Trap
 {
     [SerializeField] private ParticleSystem fire1;
-    [SerializeField] private ParticleSystem fire2;
-    [SerializeField] private float DelayToStart = 2f;
+    public float DelayToStart = 2f;
     private bool canDealDamage = false;
     private bool playerIsInRange = false;
     private Animator anim;
@@ -42,13 +41,12 @@ public class FireplateTrap : Trap
         {
             anim.SetTrigger("FireUp");
             fire1.Play();
-            fire2.Play();
             yield return new WaitForSeconds(2f);
             canDealDamage = true;
             yield return new WaitForSeconds(2f);
             anim.SetTrigger("FireDown");
             canDealDamage = false;
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(4f);
         }
     }
 
